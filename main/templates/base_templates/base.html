@@ -17,6 +17,14 @@
             <link rel="stylesheet" href="{%  static 'css/base.css' %}">
 
             <style>
+
+
+              .grey-filler {
+                    background-size: contain;
+                    background-position: 50% 0;
+                    background-repeat: repeat-y;
+                    background-color: #8b9194;
+                }
             </style>
         {% endblock %}
 
@@ -30,9 +38,15 @@
     {% block nav_bar %}
       {% include 'base_templates/nav_bar.html' %}
     {%  endblock %}
-    {% block main_content %}
 
-    {%  endblock %}
+    <main uk-grid class="uk-width-1-1" id="main_content">
+            <div class="grey-filler uk-width-expand block"></div>
+            <div class="uk-width-3-5 block uk-main-content">
+                {% block main_content %}
+                {%  endblock %}
+            </div>
+            <div class="grey-filler uk-width-expand block"></div>
+    </main>
 
  {%  block common_scripts %}
           {% load static %}
