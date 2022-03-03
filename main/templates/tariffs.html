@@ -1,0 +1,17 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+  Главная
+{% endblock %}
+
+
+{%  block main_content %}
+
+    {% for tariff in tariffs %}
+        <div uk-margin class="uk-card-title ">
+            <p class="uk-text-center">{{ tariff.cost }}</p>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
