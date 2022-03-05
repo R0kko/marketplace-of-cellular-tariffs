@@ -8,3 +8,4 @@ class Tariff(models.Model):
     minutes = models.IntegerField(default=0)
     internet = models.IntegerField(default=0)
     messages = models.IntegerField(default=0)
+    name = models.CharField(default='Название тарифа', max_length=256)

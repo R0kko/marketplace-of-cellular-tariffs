@@ -8,9 +8,7 @@
 {%  block main_content %}
 
     {% for tariff in tariffs %}
-        <div uk-margin class="uk-card-title ">
-            <p class="uk-text-center">{{ tariff.cost }}</p>
-        </div>
+        {% include 'base_templates/tariff_base.html' %}
     {% endfor %}
 
 
