@@ -1,0 +1,107 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+  Регистрация
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="uk-flex uk-flex-middle uk-flex-center uk-height-1-1">
+      <div class="fit-content">
+        <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="uk-margin-bottom">
+
+          {% csrf_token %}
+          <fieldset class="uk-padding-small">
+
+              <div id="first_part">
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Номер</label>
+                    <input class="uk-input" type="text" name="telephone_number" value='{{ form.data.telephone_number }}'>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Имя</label>
+                    <input class="uk-input" type="text" name="first_name" value='{{ form.data.first_name }}'>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Фамилия</label>
+                    <input class="uk-input" type="text" name="last_name" value='{{ form.data.last_name }}'>
+                  </div>
+
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Придумайте пароль</label>
+                    <input class="uk-input" type="password" name="password" value='{{ form.data.password }}'>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Повторите пароль</label>
+                    <input class="uk-input" type="password" name="repeated_password" value='{{ form.data.repeated_password }}'>
+                  </div>
+
+                  <div class="uk-margin">
+                      <div class="uk-inline">
+                        <a href="/login/">У меня есть аккаунт, войти</a>
+                      </div>
+                  </div>
+              </div>
+
+
+
+
+              <div id="second_part">
+
+                  <div class="uk-margin">
+                      <div class="uk-inline uk-margin-medium-right">
+                        <button class="uk-button uk-button-secondary" id="step_back" type="button">Назад</button>
+                      </div>
+                      <div class="uk-inline uk-margin-medium-right">
+                        <input class="uk-button uk-button-secondary" type="submit" value="Войти">
+                      </div>
+                  </div>
+              </div>
+
+
+          </fieldset>
+
+          {% if form.errors %}
+            <div>
+              Возникла ошибка при попытке регистрации
+              <br>
+              Возможные причины:
+              <ul>
+                {% if form.errors.telephone_number %}
+                  <li>Этот номер телефона уже зарегестрирован</li>
+                {% endif %}
+                {% if form.errors.password %}
+                  <li>Пароль не указан</li>
+                {% endif %}
+                {% if form.errors.repeated_password %}
+                  <li>Пароли не совпадают</li>
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+
+        </form>
+      </div>
+    </div>
+
+{%  endblock %}
+
+{% block extra_scripts %}
+  <script>
+    'use strict';
+
+    document.documentElement.querySelector('#first_part').style.display = 'block';
+
+    document.documentElement.querySelector('#step_forward').addEventListener('click', function(e) {
+      document.documentElement.querySelector('#first_part').style.display = 'none';
+    });
+
+    document.documentElement.querySelector('#step_back').addEventListener('click', function(e) {
+      document.documentElement.querySelector('#first_part').style.display = 'block';
+    });
+  </script>
+{% endblock %}
