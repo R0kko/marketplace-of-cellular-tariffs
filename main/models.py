@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.datetime_safe import date
 from django.utils import timezone
 
 
@@ -15,8 +16,9 @@ class Tariff(models.Model):
 
 class SupplementedUser(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    patronymic = models.TextField(default='', max_length=14)
     telephone_number = models.TextField(default='')
-    created_at = models.DateTimeField(default=timezone.now)
+    date_of_birth = models.DateField(default=date.today)
 
 
 class Notification(models.Model):

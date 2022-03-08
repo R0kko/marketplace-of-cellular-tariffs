@@ -54,19 +54,26 @@ def registration_page(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            if not User.objects.filter(username=form.data['username']).exists():
+            if not SupplementedUser.objects.filter(telephone_number=form.data['telephone_number']).exists():
                 if form.data['password'] == form.data['repeated_password']:
-                    user = User(username=form.data['username'])
-                    user.set_password(raw_password=form.data['password'])
-                    user.first_name = form.data['first_name']
-                    user.last_name = form.data['last_name']
-                    user.save()
-                    login(request, user)
+                    user1 = User()
+                    user2 = SupplementedUser()
+                    user1.set_password(raw_password=form.data['password'])
+                    user1.first_name = form.data['first_name']
+                    user1.last_name = form.data['last_name']
+                    user1.email = form.data['email']
+                    user2.date_of_birth = form.data['date_of_birth']
+                    user2.telephone_number = form.data['telephone_number']
+                    user2.patronymic = form.data['patronymic']
+                    user1.save()
+                    user2.user = user1
+                    user2.save()
+                    login(request, user1)
                     return redirect(reverse('index'))
                 else:
                     form.add_error('repeated_password', 'Пароли не совпадают.')
             else:
-                form.add_error('username', 'Этот номер уже зарегестрирован.')
+                form.add_error('telephone_number', 'Этот номер уже зарегистрирован.')
         else:
             form.add_error(None, 'Введённые данные некорректны.')
     context['form'] = form
