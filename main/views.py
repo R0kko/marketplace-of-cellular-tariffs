@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from main.models import Tariff
 
 # Create your views here.
@@ -28,3 +28,10 @@ def tariffs_page(request):
 
     context['tariffs'] = tariffs
     return render(request, 'tariffs.html', context)
+
+
+def tariff_page(request, id: int):
+    context = {}
+    tariff = get_object_or_404(Tariff, id=id)
+    context['tariff'] = tariff
+    return render(request, 'tariff_page.html', context)
