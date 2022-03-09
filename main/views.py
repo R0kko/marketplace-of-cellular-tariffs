@@ -1,7 +1,5 @@
-from django.shortcuts import render
 from main.models import Tariff, Operator
 from django.shortcuts import render, get_object_or_404
-from main.models import Tariff
 
 # Create your views here.
 
