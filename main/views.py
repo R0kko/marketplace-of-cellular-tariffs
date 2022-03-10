@@ -26,9 +26,9 @@ def create_some_tariffs():
     operators = Operator.objects.all()
     a = Tariff(cost=120, minutes=300, internet=5, messages=10, operator=operators[0])
     a.save()
-    b = Tariff(cost=123, minutes=321, internet=1, messages=0)
+    b = Tariff(cost=123, minutes=321, internet=1, messages=0, operator=operators[1])
     b.save()
-    c = Tariff(cost=666, minutes=666, internet=666, messages=666)
+    c = Tariff(cost=666, minutes=666, internet=666, messages=666, operator=operators[2])
     c.save()
 
 
