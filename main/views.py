@@ -102,3 +102,16 @@ def login_page(request):
     return render(request, 'login.html', context)
 
 
+def profile_page(request):
+    if request.user.is_authenticated:
+        current_user = get_object_or_404(SupplementedUser, user_id=request.user.id)
+        context = get_base_context(request, 'Профиль')
+        context['page_owner'] = current_user
+        context['page_owner2'] = current_user.user
+        context['u_id'] = current_user.id
+    else:
+        return redirect('/login/')
+    return render(request, 'profile.html', context)
+
+
+

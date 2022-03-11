@@ -19,9 +19,20 @@ uk-flex-middle uk-sticky" >
               <li><a class="uk-navbar-item" href="/tariffs">Подобрать тариф</a></li>
           </ul>
       </div>
-      <div class="uk-navbar-right">
-          <a class="uk-navbar-item" href="/registration">Войти в аккаунт</a>
-      </div>
+      {%  if is_authenticated %}
+          <li class="uk-margin">
+            <a uk-tooltip="title: Профиль; pos: right" href="{{ profile_url }}" uk-icon="icon: user; ratio: 1"></a>
+          </li>
+          <li class="uk-margin">
+            <a uk-tooltip="title: Выйти; pos: right" href="{{ logout_url }}" uk-icon="icon: sign-out; ratio: 1"></a>
+          </li>
+          <div class="filler"></div>
+      {%  else %}
+        <li class="uk-margin">
+          <a uk-tooltip="title: Войти; pos: right" href="{{ login_url }}" uk-icon="icon: sign-in; ratio: 1"></a>
+        </li>
+      {% endif %}
+
   </div>
 </div>
 
