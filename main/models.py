@@ -16,8 +16,8 @@ class Tariff(models.Model):
 
 class SupplementedUser(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-    patronymic = models.TextField(default='', max_length=14)
-    telephone_number = models.TextField(default='')
+    patronymic = models.TextField(default='', max_length=255)
+    telephone_number = models.TextField(default='', max_length=14)
     date_of_birth = models.DateField(default=date.today)
 
 

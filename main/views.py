@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from main.forms import RegistrationForm
+from main.forms import RegistrationForm, LoginForm
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.hashers import check_password
 
 from main.models import SupplementedUser, Notification, Tariff
 
@@ -78,4 +79,26 @@ def registration_page(request):
             form.add_error(None, 'Введённые данные некорректны.')
     context['form'] = form
     return render(request, 'registration.html', context)
+
+
+def login_page(request):
+    context = get_base_context(request)
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.data
+            telephone_number = data['telephone_number']
+            password = data['password']
+            user1 = SupplementedUser.objects.filter(telephone_number=telephone_number)
+            if len(user1) == 0:
+                form.add_error('telephone_number', 'Пользователь с таким номером телефона не зарегистрирован')
+            if check_password(password, user1[0].user.password):
+                login(request, user1[0].user)
+                return redirect(reverse('index'))
+            else:
+                form.add_error('password', 'Неверно введён пароль')
+    context['form'] = form
+    return render(request, 'login.html', context)
+
 

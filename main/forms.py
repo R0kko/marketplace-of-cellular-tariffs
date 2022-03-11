@@ -12,3 +12,8 @@ class RegistrationForm(forms.Form):
                                label='Придумайте новый пароль', widget=forms.PasswordInput())
     repeated_password = forms.CharField(max_length=128, min_length=1, required=True,
                                         label='Повторите пароль', widget=forms.PasswordInput())
+
+class LoginForm(forms.Form):
+    telephone_number = forms.CharField(max_length=14, min_length=1, required=True, label='Номер телефона', widget=forms.TextInput())
+    password = forms.CharField(max_length=128, min_length=1, required=True,
+                               label='Введите пароль', widget=forms.PasswordInput())
