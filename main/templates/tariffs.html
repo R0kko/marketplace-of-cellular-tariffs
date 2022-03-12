@@ -7,6 +7,36 @@
 
 {%  block main_content %}
 
+    <form method="get" action="{% url 'tariffs' %}">
+        <fieldset class="uk-fieldset">
+            <div uk-grid class="uk-margin-medium ">
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2">
+                        <span class="uk-text-middle uk-text-bolder uk-text-large">Цена</span>
+                        <input class="uk-input" type="text" placeholder="">
+                </div>
+                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Минуты</span>
+                    <input class="uk-input" type="text" placeholder="">
+                </div>
+                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Гигабайты</span>
+                    <input class="uk-input" type="text" placeholder="">
+                </div>
+                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Cообщения</span>
+                    <input class="uk-input" type="text" placeholder="">
+                </div>
+                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+            </div>
+        </fieldset>
+    </form>
+
     {% for tariff in tariffs %}
         {% include 'base_templates/tariff_base.html' %}
     {% endfor %}
