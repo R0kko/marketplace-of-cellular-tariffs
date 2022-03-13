@@ -99,6 +99,7 @@ def tariff_page(request, id: int):
     context['tariff'] = tariff
     return render(request, 'tariff_page.html', context)
 
+
 def registration_page(request):
     context = get_base_context(request)
     form = RegistrationForm()
@@ -174,7 +175,7 @@ def profile_edit_page(request):
         except BaseException:
             form.add_error(None, 'incorrect session')
         else:
-            user1 = SupplementedUser.objects.filter(user_id=request.user.id)[0]
+            user1 = SupplementedUser.objects.get(user_id=request.user.id)
             form = FullPersonalInformationForm(
                 initial={
                     'date_of_birth': user.date_of_birth,

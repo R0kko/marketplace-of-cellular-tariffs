@@ -23,19 +23,20 @@ uk-flex-middle uk-sticky" >
               <li><a class="uk-navbar-item" href="/tariffs">Подобрать тариф</a></li>
           </ul>
       </div>
-      {%  if is_authenticated %}
-          <li class="uk-margin">
-            <a uk-tooltip="title: Профиль; pos: right" href="/profile/" uk-icon="icon: user; ratio: 1"></a>
-          </li>
-          <li class="uk-margin">
-            <a uk-tooltip="title: Выйти; pos: right" href="{{ logout_url }}?next=/" uk-icon="icon: sign-out; ratio: 1"></a>
-          </li>
-          <div class="filler"></div>
-      {%  else %}
-        <li class="uk-margin">
-          <a uk-tooltip="title: Войти; pos: right" href="{{ login_url }}" uk-icon="icon: sign-in; ratio: 1"></a>
-        </li>
-      {% endif %}
+      <div class="uk-navbar-right">
+          {%  if is_authenticated %}
+              <div class="uk-navbar-item">
+                <a uk-tooltip="title: Профиль;" href="/profile/" uk-icon="icon: user; ratio: 1"></a>
+              </div>
+              <div class="uk-navbar-item">
+                <a uk-tooltip="title: Выйти;" href="{{ logout_url }}?next=/" uk-icon="icon: sign-out; ratio: 1"></a>
+              </div>
+          {%  else %}
+            <div class="uk-navbar-item">
+              <a uk-tooltip="title: Войти;" href="{{ login_url }}" uk-icon="icon: sign-in; ratio: 1"></a>
+            </div>
+          {% endif %}
+      </div>
 
   </div>
 </div>
