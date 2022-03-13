@@ -38,6 +38,10 @@ def create_some_tariffs():
     c.save()
 
 
+def sorting_tariffs(tariff):
+    return 1000 - tariff.cost
+
+
 def tariffs_page(request):
     context = {}
     tariffs = Tariff.objects.all()
@@ -45,10 +49,25 @@ def tariffs_page(request):
         create_some_operators()
         create_some_tariffs()
         tariffs = Tariff.objects.all()
+    price = 0
+    minutes = 0
+    gb = 0
+    messages = 0
 
-    if request.method == 'GET':
-        print(request.GET)
+    if request.method == 'GET' and 'price_input' in request.GET:
+        price = int(request.GET['price_input'])
+        minutes = int(request.GET['minutes_input'])
+        gb = int(request.GET['gb_input'])
+        messages = int(request.GET['messages_input'])
 
+        tariffs_list = list(tariffs)
+        tariffs_list.sort(key=lambda a: abs(price - a.cost)**2 + abs(minutes - a.minutes) + abs(gb - a.internet) + abs(messages - a.messages))
+        tariffs = tariffs_list
+
+    context['price_val'] = price
+    context['minutes_val'] = minutes
+    context['gb_val'] = gb
+    context['messages_val'] = messages
     context['tariffs'] = tariffs
     return render(request, 'tariffs.html', context)
 
