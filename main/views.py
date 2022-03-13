@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from main.forms import RegistrationForm, LoginForm
-from django.contrib.auth import login, logout
+from main.forms import RegistrationForm, LoginForm, FullPersonalInformationForm, ChangePasswordForm
+from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
@@ -118,6 +118,93 @@ def profile_page(request):
     else:
         return redirect('/login/')
     return render(request, 'profile.html', context)
+
+
+def profile_edit_page(request):
+    context = get_base_context(request, 'Пользовательские данные')
+    form = FullPersonalInformationForm()
+    if request.method == 'GET':
+        try:
+            user = get_object_or_404(SupplementedUser, user_id=request.user.id)
+        except BaseException:
+            form.add_error(None, 'incorrect session')
+        else:
+            user1 = SupplementedUser.objects.filter(user_id=request.user.id)[0]
+            form = FullPersonalInformationForm(
+                initial={
+                    'date_of_birth': user.date_of_birth,
+                    'email': request.user.email,
+                    'name': request.user.first_name,
+                    'surname': request.user.last_name,
+                    'patronymic': user1.patronymic,
+                    'telephone_number': user1.telephone_number,
+                }
+            )
+            context['date_of_birth'] = f"{user.date_of_birth:%Y-%m-%d}"
+    elif request.method == 'POST':
+        form = FullPersonalInformationForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                user = get_object_or_404(SupplementedUser, user_id=request.user.id)
+            except BaseException:
+                form.add_error(None, 'incorrect session')
+            else:
+                data = form.data
+                instance = form.instance
+
+                request.user.first_name = data['name']
+                request.user.last_name = data['surname']
+                request.user.email = data['email']
+                request.user.save()
+
+                user.date_of_birth = instance.date_of_birth
+                user.save()
+                return redirect('/profile/')
+
+    context['form'] = form
+    return render(request, 'profile_edit.html', context)
+
+
+def password_change(request):
+    context = get_base_context(request, 'Смена пароля')
+    form = ChangePasswordForm()
+    if request.method == 'GET':
+        try:
+            user = get_object_or_404(SupplementedUser, user_id=request.user.id)
+        except BaseException:
+            form.add_error(None, 'incorrect session')
+        else:
+            form = ChangePasswordForm()
+    elif request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            try:
+                user = get_object_or_404(SupplementedUser, user_id=request.user.id)
+            except BaseException:
+                form.add_error(None, 'incorrect session')
+            else:
+                old_password = request.POST.get("old_password")
+                new_password = request.POST.get("new_password")
+                rep_new_password = request.POST.get("rep_new_password")
+                if not old_password or not new_password or not rep_new_password:
+                    form.add_error(None, 'Одно из полей пустое')
+                if check_password(old_password, user.user.password):
+                    if new_password == rep_new_password:
+                        if old_password == new_password:
+                            form.add_error('new_password', 'Новый пароль должен отличаться от старого')
+                        else:
+                            name = request.user.username
+                            request.user.set_password(new_password)
+                            authenticate(username=name, password=new_password)
+                            request.user.save()
+                            return redirect(reverse('login'))
+                    else:
+                        form.add_error('rep_new_password', 'Введённые пароли не совпадают')
+                else:
+                    form.add_error('old_password', 'Старый пароль введён некорректно')
+    context['form'] = form
+    return render(request, 'password_change.html', context)
+
 
 
 

@@ -1,0 +1,88 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+  Редактировать профиль
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="uk-flex uk-flex-middle uk-flex-center uk-height-1-1">
+      <div class="fit-content">
+        <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="uk-margin-bottom">
+
+          {% csrf_token %}
+          <fieldset class="uk-padding-small">
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Имя</label>
+                <input class="uk-input" type="text" name="name" value='{{ form.name.value }}'>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Фамилия</label>
+                <input class="uk-input" type="text" name="surname" value='{{ form.surname.value }}'>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Отчество</label>
+                <input class="uk-input" type="text" name="patronymic" value='{{ form.patronymic.value }}'>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Номер телефона</label>
+                <input class="uk-input" type="text" name="telephone_number" value='{{ form.telephone_number.value }}'>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Почта</label>
+                <input class="uk-input" type="email" name="email" value='{{ form.email.value }}'>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Дата рождения</label>
+                <input class="uk-input" type="date" name="date_of_birth" value='{{ date_of_birth }}'>
+              </div>
+
+              <div class="uk-margin">
+                <div class="uk-inline uk-margin-medium-right">
+                  <input class="uk-button uk-button-secondary" type="submit" value="Сохранить">
+                </div>
+                <div class="uk-inline">
+                  <a href="/profile/edit/password_change">Сменить пароль</a>
+                </div>
+              </div>
+
+          </fieldset>
+
+          {% if form.errors %}
+            <div>
+              Возникла ошибка при попытке сохранения изменений
+              <br>
+              Возможные причины:
+              <ul>
+                {% if form.errors.name %}
+                  <li>Имя не указано</li>
+                {% endif %}
+                {% if form.errors.surname %}
+                  <li>Фамилия не указана</li>
+                {% endif %}
+                {% if form.errors.email %}
+                  <li>Почта не указана</li>
+                {% endif %}
+                {% if form.errors.date_of_birth %}
+                  <li>Дата рождения не указана</li>
+                {% endif %}
+                {% if form.errors.gender %}
+                  <li>Гендер не указан (коль не определились, так и пишите)</li>
+                {% endif %}
+                {% if form.errors.country %}
+                  <li>Страна не указана (апатриды, простите, укажите, что Вы гражданин мира)</li>
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+
+{% endblock %}

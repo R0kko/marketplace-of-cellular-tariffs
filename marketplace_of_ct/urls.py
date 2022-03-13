@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from main.views import index_page, tariffs_page, registration_page, login_page, profile_page
+from main.views import index_page, tariffs_page, registration_page, login_page, profile_page, profile_edit_page, \
+    password_change
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,7 @@ urlpatterns = [
     path('login/', login_page, name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', profile_page, name='my_profile'),
+    path('profile/edit/', profile_edit_page, name='edit_page'),
+    path('profile/edit/password_change', password_change, name='password_change'),
+
 ]
