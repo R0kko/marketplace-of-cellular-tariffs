@@ -16,3 +16,4 @@ class Tariff(models.Model):
     messages = models.IntegerField(default=0)
     name = models.CharField(default='Название тарифа', max_length=256)
     operator = models.ForeignKey(Operator, null=True, on_delete=models.CASCADE)
+    general_information = models.TextField(default='Общая информация о тарифе')

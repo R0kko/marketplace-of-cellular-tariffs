@@ -24,7 +24,13 @@ def create_some_operators():
 
 def create_some_tariffs():
     operators = Operator.objects.all()
-    a = Tariff(cost=120, minutes=300, internet=5, messages=10, operator=operators[0])
+    a = Tariff(cost=120, minutes=300, internet=5, messages=10, operator=operators[0],
+               general_information='''Пользоваться мессенджерами в поездках можно безлимитно. В тариф включены услуги «Безлимитные
+                    мессенджеры за границей» и «Безлимитные мессенджеры на полуострове» на специальных условиях:
+                    оплачивайте тариф вовремя и пользуйтесь услугами бесплатно. Находясь за границей или в Республике
+                    Крым и г. Севастополь без подключения дополнительных опций, безлимитно предоставляется доступ к
+                    Viber, ТамТам, WhatsApp, а исходящие звонки на Tele2 России из популярных стран Европы включены
+                    в пакет тарифа.''')
     a.save()
     b = Tariff(cost=123, minutes=321, internet=1, messages=0, operator=operators[1])
     b.save()

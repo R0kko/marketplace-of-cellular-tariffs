@@ -15,6 +15,35 @@
                 <a href="{{ tariff.operator.website_link }}" class="uk-margin-small-left">{{ tariff.operator.name }}</a>
             </div>
         </div>
+        <div class="uk-child-width-1-2" uk-grid>
+            <div>
+                <p class="uk-text-lead">
+                    {{ tariff.general_information }}
+                </p>
+            </div>
+            <div  uk-grid class="uk-text-center uk-text-middle uk-grid-match uk-child-width-1-2   uk-text-bolder uk-text-large ">
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body  ">
+                       <span>{{ tariff.cost }} &#8381;</span>
+                    </div>
+                </div>
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <span>Минуты: <br>{{ tariff.minutes }}</span>
+                    </div>
+                </div>
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <span>Гигабайты: <br>{{ tariff.internet }}</span>
+                    </div>
+                </div>
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <span>Сообщения: <br>{{ tariff.messages }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
