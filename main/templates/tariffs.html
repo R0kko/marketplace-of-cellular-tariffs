@@ -6,34 +6,35 @@
 
 
 {%  block main_content %}
-
+    <h1 class="uk-text-center uk-margin-medium-bottom">Подберите себе тариф!</h1>
     <form method="get" action="{% url 'tariffs' %}">
-        <fieldset class="uk-fieldset">
-            <div uk-grid class="uk-margin-medium ">
+        <fieldset class="uk-fieldset uk-margin-medium-bottom">
+            <div uk-grid class="uk-margin-medium">
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2">
-                        <span class="uk-text-middle uk-text-bolder uk-text-large">Цена</span>
-                        <input class="uk-input" type="text" placeholder="">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Цена</span>
+                    <input class="uk-input" type="text" value="200" id="price_input" name="price_input">
                 </div>
-                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+                <input id="price_range" name="price_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
 
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Минуты</span>
-                    <input class="uk-input" type="text" placeholder="">
+                    <input name="minutes_input" id="minutes_input"  class="uk-input" type="text" placeholder="">
                 </div>
-                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+                <input name="minutes_range" id="minutes_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
 
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Гигабайты</span>
-                    <input class="uk-input" type="text" placeholder="">
+                    <input name="gb_input" id="gb_input" class="uk-input" type="text" placeholder="">
                 </div>
-                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+                <input name="gb_range" id="gb_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
 
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Cообщения</span>
-                    <input class="uk-input" type="text" placeholder="">
+                    <input name="messages_input" id="messages_input" class="uk-input" type="text" placeholder="">
                 </div>
-                <input class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
+                <input name="messages_range" id="messages_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="2" min="0" max="10" step="0.1">
             </div>
+            <button class="uk-button uk-button-secondary uk-align-center" type="submit">Подобрать</button>
         </fieldset>
     </form>
 
@@ -42,4 +43,52 @@
     {% endfor %}
 
 
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        $(document).ready(function(){
+            $('#price_input').val($('#price_range').val());
+            $('#price_range').mousemove(function() {
+                $('#price_input').val($('#price_range').val());
+            });
+
+            $('#price_input').change(function() {
+                $('#price_range').val($('#price_input').val());
+            });
+        })
+
+        $(document).ready(function(){
+            $('#minutes_input').val($('#minutes_range').val());
+            $('#minutes_range').mousemove(function() {
+                $('#minutes_input').val($('#minutes_range').val());
+            });
+
+            $('#minutes_input').change(function() {
+                $('#minutes_range').val($('#minutes_input').val());
+            });
+        })
+
+        $(document).ready(function(){
+            $('#gb_input').val($('#gb_range').val());
+            $('#gb_range').mousemove(function() {
+                $('#gb_input').val($('#gb_range').val());
+            });
+
+            $('#gb_input').change(function() {
+                $('#gb_range').val($('#gb_input').val());
+            });
+        })
+
+        $(document).ready(function(){
+            $('#messages_input').val($('#messages_range').val());
+            $('#messages_range').mousemove(function() {
+                $('#messages_input').val($('#messages_range').val());
+            });
+
+            $('#messages_input').change(function() {
+                $('#messages_range').val($('#messages_input').val());
+            });
+        })
+    </script>
 {% endblock %}
