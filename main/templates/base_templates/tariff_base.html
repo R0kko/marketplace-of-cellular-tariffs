@@ -1,0 +1,39 @@
+
+<div class="uk-card uk-card-default uk-margin-medium-bottom uk-padding-medium">
+    <div class="uk-card-header">
+        <div class="uk-grid-small" uk-grid>
+            <div class="uk-card-title">
+                <h3> <b>{{ forloop.counter }}</b>. Тариф "{{ tariff.name }}"</h3>
+            </div>
+            <div class="uk-width-expand">
+                <div class="uk-align-right" >
+                    <div class="uk-width-auto">
+                        {%  load static %}
+                        <img class="uk-border-circle" width="40" height="40" src= "{%  static tariff.operator.icon.url %} ">
+                        <a href="{{ tariff.operator.website_link }}" class="uk-margin-small-left">{{ tariff.operator.name }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="uk-card-body ">
+        <div  uk-grid class="uk-grid-match uk-child-width-1-4 uk-text-center uk-text-middle uk-text-bolder uk-text-large ">
+            <div class="uk-padding-small">
+                <div class="uk-card uk-card-default uk-card-body">{{ tariff.cost }} &#8381;</div>
+            </div>
+            <div class="uk-padding-small">
+                <div class="uk-card uk-card-default uk-card-body">Минуты: <br>{{ tariff.minutes }}</div>
+            </div>
+            <div class="uk-padding-small">
+                <div class="uk-card uk-card-default uk-card-body">Гигабайты: <br>{{ tariff.internet }}</div>
+            </div>
+            <div class="uk-padding-small">
+                <div class="uk-card uk-card-default uk-card-body">Сообщения: <br>{{ tariff.messages }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="uk-card-footer">
+        <a href="/">Подробнее >></a>
+    </div>
+
+</div>

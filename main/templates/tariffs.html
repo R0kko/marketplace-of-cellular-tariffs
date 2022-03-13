@@ -1,0 +1,15 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+  Главная
+{% endblock %}
+
+
+{%  block main_content %}
+
+    {% for tariff in tariffs %}
+        {% include 'base_templates/tariff_base.html' %}
+    {% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: auto;
+}
+
+main {
+    min-height: 100vh;
+    padding: 0;
+}
+
+aside {
+    height: 95vh;
+}
+
+.block {
+    margin: 0;
+    padding: 0;
+}
+
+.lena-width-xsmall {
+    width: 60px !important;
+}
+
+.lena-height-xsmall {
+    height: 5vh !important;
+}
+
+.uk-padding-xsmall {
+    padding: 10px;
+}
+
+.uk-sticky-placeholder {
+    height: 100 !important;
+}
+
+.uk-width-1-12 { width: 8.333%; }
+.uk-width-2-12 { width: 16.666%; }
+.uk-width-3-12 { width: 25%; }
+.uk-width-4-12 { width: 33.333%; }
+.uk-width-5-12 { width: 41.666%; }
+.uk-width-6-12 { width: 50%; }
+.uk-width-7-12 { width: 58.333%; }
+.uk-width-8-12 { width: 66.666%; }
+.uk-width-9-12 { width: 75%; }
+.uk-width-10-12 { width: 83.333%; }
+.uk-width-11-12 { width: 91.666%; }
+
+.uk-main-content {
+    min-width: 600px;
+    padding: 60px 30px;
+}
+
+.no-min-height {
+    min-height: 0 !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.fit-content {
+    width: fit-content !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.break-word {
+  word-wrap: break-word;
+}

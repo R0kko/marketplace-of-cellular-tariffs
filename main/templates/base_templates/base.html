@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+    <title>
+        {%  block title %}
+            marketplace_of_ct
+        {% endblock %}
+    </title>
+
+    {%  block common_styles %}
+          {%  load static %}
+            <link rel="stylesheet" href="{%  static 'uikit-3.11.1/css/uikit.min.css' %}">
+            <link rel="stylesheet" href="{%  static 'uikit-3.11.1/css/uikit-rtl.min.css' %}">
+            <link rel="stylesheet" href="{%  static 'css/base.css' %}">
+
+            <style>
+
+
+              .grey-filler {
+                    background-size: contain;
+                    background-position: 50% 0;
+                    background-repeat: repeat-y;
+                    background-color: #8b9194;
+                }
+            </style>
+        {% endblock %}
+
+    {% block extra_styles %}
+    {% endblock %}
+
+
+    </head>
+
+<body>
+    {% block nav_bar %}
+      {% include 'base_templates/nav_bar.html' %}
+    {%  endblock %}
+
+    <main uk-grid class="uk-width-1-1" id="main_content">
+            <div class="grey-filler uk-width-expand block"></div>
+            <div class="uk-width-3-5 block uk-main-content">
+                {% block main_content %}
+                {%  endblock %}
+            </div>
+            <div class="grey-filler uk-width-expand block"></div>
+    </main>
+
+ {%  block common_scripts %}
+          {% load static %}
+            <script src="{%  static 'uikit-3.11.1/js/uikit.min.js' %}"></script>
+            <script src="{%  static 'uikit-3.11.1/js/uikit-icons.min.js' %}"></script>
+ {% endblock %}
+
+</body>
+</html>
