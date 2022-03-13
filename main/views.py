@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from main.forms import RegistrationForm, LoginForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
@@ -11,9 +11,25 @@ from main.models import SupplementedUser, Notification, Tariff
 
 # Create your views here.
 
+def get_base_context(request, pagename: str = "Page"):
+    user = SupplementedUser.objects.filter(user_id=request.user.id).first()
+    if user:
+        user.new_notifications_count = len(Notification.objects.filter(receiver=user))
+        user.save()
+    return {
+        'is_authenticated': request.user.is_authenticated,
+        'pagename': pagename,
+        'User': get_object_or_404(SupplementedUser, user_id=request.user.id) if request.user.is_authenticated else ''
+    }
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
+
 
 def index_page(request):
-    context = {}
+    context = get_base_context(request, 'Главная')
 
     return render(request, 'index.html', context)
 
@@ -36,17 +52,6 @@ def tariffs_page(request):
 
     context['tariffs'] = tariffs
     return render(request, 'tariffs.html', context)
-
-def get_base_context(request, pagename: str = "Page"):
-    user = SupplementedUser.objects.filter(user_id=request.user.id).first()
-    if user:
-        user.new_notifications_count = len(Notification.objects.filter(receiver=user))
-        user.save()
-    return {
-        'is_authenticated': request.user.is_authenticated,
-        'pagename': pagename,
-        'User': get_object_or_404(SupplementedUser, user_id=request.user.id) if request.user.is_authenticated else '',
-    }
 
 
 def registration_page(request):
@@ -103,6 +108,7 @@ def login_page(request):
 
 
 def profile_page(request):
+    context = get_base_context(request, 'Профиль')
     if request.user.is_authenticated:
         current_user = get_object_or_404(SupplementedUser, user_id=request.user.id)
         context = get_base_context(request, 'Профиль')
