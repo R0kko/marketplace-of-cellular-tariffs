@@ -11,10 +11,10 @@ def index_page(request):
 
 
 def create_some_operators():
-    a = Operator(name='Operator 1', website_link='https://vk.com/4svon',
+    a = Operator(name='Operator 1', website_link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                  icon='operator_icons/icon1.jpg')
     a.save()
-    b = Operator(name='Operator 2', website_link='https://vk.com/mikhail03er',
+    b = Operator(name='Operator 2', website_link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                  icon='operator_icons/icon2.jpg')
     b.save()
     c = Operator(name='Operator 3', website_link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
@@ -45,6 +45,9 @@ def tariffs_page(request):
         create_some_operators()
         create_some_tariffs()
         tariffs = Tariff.objects.all()
+
+    if request.method == 'GET':
+        print(request.GET)
 
     context['tariffs'] = tariffs
     return render(request, 'tariffs.html', context)
