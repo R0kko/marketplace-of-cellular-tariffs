@@ -13,7 +13,7 @@
         {% csrf_token %}
         <fieldset class="uk-padding-small">
             <div class="uk-margin">
-              <label class="uk-form-label">Email</label>
+              <label class="uk-form-label">Почта</label>
               <input class="uk-input" type="text" name="email">
             </div>
 
@@ -38,8 +38,8 @@
             <br>
             Возможные причины:
             <ul>
-              {% if form.errors.username %}
-                <li>Пользователь с таким номером телефона не зарегистрирован</li>
+              {% if form.errors.email %}
+                <li>Пользователь с такой почтой не зарегистрирован</li>
               {% endif %}
               {% if form.errors.password %}
                 <li>Неверно введён пароль</li>

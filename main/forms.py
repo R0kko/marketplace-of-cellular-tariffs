@@ -38,6 +38,6 @@ class ChangePasswordForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField(max_length=150, min_length=1, required=True, label='Email', widget=forms.TextInput())
+    email = forms.CharField(max_length=150, min_length=1, required=True, label='Почта', widget=forms.TextInput())
     password = forms.CharField(max_length=128, min_length=1, required=True,
                                label='Введите пароль', widget=forms.PasswordInput())

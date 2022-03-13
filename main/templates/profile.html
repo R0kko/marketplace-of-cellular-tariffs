@@ -39,4 +39,20 @@
   </div>
   <hr>
 
+    {% if tariffs %}
+    <h2>
+      Ваши избранные тарифы:
+    </h2>
+    <br>
+    {% for tariff in trariffs %}
+
+    {% endfor %}
+    {% else %}
+    <h2>
+      Вы не добавили ни один тариф в избранное.
+    </h2>
+    {% endif %}
+
 {% endblock %}
+
+

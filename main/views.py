@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
 
-from main.models import SupplementedUser, Notification, Tariff, Operator
+from main.models import SupplementedUser, Notification, Tariff, Operator, Favorite_fact
 
 
 # Create your views here.
@@ -96,6 +96,18 @@ def tariffs_page(request):
 def tariff_page(request, id: int):
     context = get_base_context(request, 'Тариф')
     tariff = get_object_or_404(Tariff, id=id)
+    if request.user.is_authenticated:
+        cur_user = request.user.supplementeduser_set.first()
+        isfavorite = Favorite_fact.objects.filter(tariff=tariff, fav_author=cur_user)
+
+    if request.method == "POST" and request.user.is_authenticated:
+        if "favorite" in request.POST:
+            if isfavorite.count() == 0:
+                favorite_cr = Favorite_fact(tariff=tariff, fav_author=cur_user)
+                favorite_cr.save()
+            else:
+                Favorite_fact.objects.filter(id=isfavorite[0].id).delete()
+
     context['tariff'] = tariff
     return render(request, 'tariff_page.html', context)
 
@@ -117,6 +129,7 @@ def registration_page(request):
                     user2.date_of_birth = form.data['date_of_birth']
                     user2.telephone_number = form.data['telephone_number']
                     user2.patronymic = form.data['patronymic']
+                    user1.username = len(SupplementedUser.objects.all())
                     user1.save()
                     user2.user = user1
                     user2.save()
@@ -133,7 +146,7 @@ def registration_page(request):
 
 
 def login_page(request):
-    context = get_base_context(request)
+    context = get_base_context(request, 'Вход')
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST, request.FILES)
@@ -143,8 +156,8 @@ def login_page(request):
             password = data['password']
             user1 = User.objects.filter(email=email)
             if len(user1) == 0:
-                form.add_error('telephone_number', 'Пользователь с email не зарегистрирован')
-            if check_password(password, user1[0].password):
+                form.add_error('email', 'Пользователь с email не зарегистрирован')
+            elif check_password(password, user1[0].password):
                 login(request, user1[0])
                 return redirect(reverse('index'))
             else:
@@ -195,13 +208,17 @@ def profile_edit_page(request):
             except BaseException:
                 form.add_error(None, 'incorrect session')
             else:
+                user1 = SupplementedUser.objects.get(telephone_number='228')
                 data = form.data
                 instance = form.instance
 
                 request.user.first_name = data['name']
                 request.user.last_name = data['surname']
                 request.user.email = data['email']
+                user1.telephone_number = data['telephone_number']
+                user1.patronymic = data['patronymic']
                 request.user.save()
+                user1.save()
 
                 user.date_of_birth = instance.date_of_birth
                 user.save()

@@ -30,6 +30,11 @@ class SupplementedUser(models.Model):
     date_of_birth = models.DateField(default=date.today)
 
 
+class Favorite_fact(models.Model):
+    tariff = models.ForeignKey(to=Tariff, on_delete=models.CASCADE)
+    fav_author = models.ForeignKey(to=SupplementedUser, on_delete=models.CASCADE)
+
+
 class Notification(models.Model):
     receiver = models.ForeignKey(to=SupplementedUser, on_delete=models.CASCADE, related_name="receiver")
     author = models.ForeignKey(to=SupplementedUser, on_delete=models.CASCADE, related_name="author")
