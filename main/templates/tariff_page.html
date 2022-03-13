@@ -7,7 +7,7 @@
 
 {%  block main_content %}
     <div class="uk-grid-medium" uk-grid>
-        <div class="uk-width-1-1 uk-align-center">
+        <div class="uk-align-center">
             <div class=" ">
                 <h1 class=" ">Тариф "{{ tariff.name }}"</h1>
                 {%  load static %}
@@ -21,6 +21,9 @@
                             {% csrf_token %}
                             <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8" style="color:yellow"></button>
                         </form>
+                    </div>
+                    <div>
+                        <a class="uk-button uk-button-secondary" href="">Оформить тариф</a>
                     </div>
                 </div>
             </div>
