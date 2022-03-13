@@ -1,0 +1,55 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+  Вход
+{% endblock %}
+
+{% block main_content %}
+
+  <div class="uk-flex uk-flex-middle uk-flex-center uk-height-1-1">
+    <div class="fit-content">
+      <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="uk-margin-bottom">
+
+        {% csrf_token %}
+        <fieldset class="uk-padding-small">
+            <div class="uk-margin">
+              <label class="uk-form-label">Email</label>
+              <input class="uk-input" type="text" name="email">
+            </div>
+
+            <div class="uk-margin">
+              <label class="uk-form-label">Пароль</label>
+              <input class="uk-input" type="password" name="password">
+            </div>
+
+            <div class="uk-margin">
+              <div class="uk-inline uk-margin-medium-right">
+                <input class="uk-button uk-button-secondary" type="submit" value="Войти">
+              </div>
+              <div class="uk-inline">
+                <a href="/registration/">Зарегистрироваться</a>
+              </div>
+            </div>
+        </fieldset>
+
+        {% if form.errors %}
+          <div>
+            Возникла ошибка при попытке регистрации
+            <br>
+            Возможные причины:
+            <ul>
+              {% if form.errors.username %}
+                <li>Пользователь с таким номером телефона не зарегистрирован</li>
+              {% endif %}
+              {% if form.errors.password %}
+                <li>Неверно введён пароль</li>
+              {% endif %}
+              <li>Не все поля заполнены</li>
+            </ul>
+          </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+
+{%  endblock %}

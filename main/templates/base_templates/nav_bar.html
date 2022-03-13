@@ -1,3 +1,7 @@
+{% url 'profile' as my_profile_url %}
+{% url 'logout' as logout_url %}
+{% url 'login' as login_url %}
+
 {#<div class="uk-background-secondary uk-section-primary uk-width-1-1 uk-padding-xsmall uk-flex uk-flex-center#}
 {#uk-flex-middle" uk-sticky>#}
 {#  <nav class="uk-width-11-12  " uk-navbar>#}
@@ -19,9 +23,20 @@ uk-flex-middle uk-sticky" >
               <li><a class="uk-navbar-item" href="/tariffs">Подобрать тариф</a></li>
           </ul>
       </div>
-      <div class="uk-navbar-right">
-          <a class="uk-navbar-item" href="#">Войти в аккаунт</a>
-      </div>
+      {%  if is_authenticated %}
+          <li class="uk-margin">
+            <a uk-tooltip="title: Профиль; pos: right" href="/profile/" uk-icon="icon: user; ratio: 1"></a>
+          </li>
+          <li class="uk-margin">
+            <a uk-tooltip="title: Выйти; pos: right" href="{{ logout_url }}?next=/" uk-icon="icon: sign-out; ratio: 1"></a>
+          </li>
+          <div class="filler"></div>
+      {%  else %}
+        <li class="uk-margin">
+          <a uk-tooltip="title: Войти; pos: right" href="{{ login_url }}" uk-icon="icon: sign-in; ratio: 1"></a>
+        </li>
+      {% endif %}
+
   </div>
 </div>
 
