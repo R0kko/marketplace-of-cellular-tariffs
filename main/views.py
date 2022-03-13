@@ -93,13 +93,13 @@ def login_page(request):
         form = LoginForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.data
-            telephone_number = data['telephone_number']
+            email = data['email']
             password = data['password']
-            user1 = SupplementedUser.objects.filter(telephone_number=telephone_number)
+            user1 = User.objects.filter(email=email)
             if len(user1) == 0:
-                form.add_error('telephone_number', 'Пользователь с таким номером телефона не зарегистрирован')
-            if check_password(password, user1[0].user.password):
-                login(request, user1[0].user)
+                form.add_error('telephone_number', 'Пользователь с email не зарегистрирован')
+            if check_password(password, user1[0].password):
+                login(request, user1[0])
                 return redirect(reverse('index'))
             else:
                 form.add_error('password', 'Неверно введён пароль')

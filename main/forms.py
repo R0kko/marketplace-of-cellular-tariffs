@@ -14,6 +14,6 @@ class RegistrationForm(forms.Form):
                                         label='Повторите пароль', widget=forms.PasswordInput())
 
 class LoginForm(forms.Form):
-    telephone_number = forms.CharField(max_length=14, min_length=1, required=True, label='Номер телефона', widget=forms.TextInput())
+    email = forms.CharField(max_length=150, min_length=1, required=True, label='Email', widget=forms.TextInput())
     password = forms.CharField(max_length=128, min_length=1, required=True,
                                label='Введите пароль', widget=forms.PasswordInput())
