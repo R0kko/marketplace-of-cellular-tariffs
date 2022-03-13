@@ -11,8 +11,18 @@
             <div class=" ">
                 <h1 class=" ">Тариф "{{ tariff.name }}"</h1>
                 {%  load static %}
-                <img class="uk-border-circle" width="40" height="40" src= "{%  static tariff.operator.icon.url %} ">
-                <a href="{{ tariff.operator.website_link }}" class="uk-margin-small-left">{{ tariff.operator.name }}</a>
+                <div uk-grid class="uk-grid-small">
+                    <div class="">
+                        <img class="uk-border-circle" width="40" height="40" src= "{%  static tariff.operator.icon.url %} ">
+                        <a href="{{ tariff.operator.website_link }}" class="uk-margin-small-left">{{ tariff.operator.name }}</a>
+                    </div>
+                    <div class="">
+                        <form action="{{ request.get_full_path }}" method="POST">
+                            {% csrf_token %}
+                            <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8" style="color:yellow"></button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="uk-child-width-1-2" uk-grid>

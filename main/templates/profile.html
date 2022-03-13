@@ -16,11 +16,8 @@
     {% load static %}
     <div class="page_owner-information break-word uk-width-1-3@xl uk-width-5-6">
       <div>
-        <h1 class="uk-margin-small-bottom">
-            <a uk-tooltip="title: Редактировать профиль;" href="{% url 'edit_page' %}" uk-icon="icon: pencil; ratio: 1.5"></a>
-        </h1>
         <h1 class="uk-margin-small-top">
-            {{ page_owner.user.first_name }} {{ page_owner.user.last_name }} {{ page_owner.patronymic }}
+            {{ page_owner.user.first_name }} {{ page_owner.user.last_name }} {{ page_owner.patronymic }} <a uk-tooltip="title: Редактировать профиль;" href="{% url 'edit_page' %}" uk-icon="icon: pencil; ratio: 1.5"></a>
         </h1>
       </div>
 
