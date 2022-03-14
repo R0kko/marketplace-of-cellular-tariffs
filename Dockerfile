@@ -1,10 +1,11 @@
+# syntax=docker/dockerfile:1
 FROM python:3.8
-
-RUN mkdir /code
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 WORKDIR /code
-ADD . /code/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/
 
 EXPOSE 8000
-CMD ["python", "/code/manage.py", "migrate"]
 CMD ["python", "/code/manage.py", "runserver", "0.0.0.0:8000"]
