@@ -372,4 +372,3 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/django,pycharm+all,python,linux,macos,windows
 /node_modules/
-/node_modules/

@@ -48,11 +48,15 @@
             <div class="grey-filler uk-width-expand block"></div>
     </main>
 
- {%  block common_scripts %}
-          {% load static %}
-            <script src="{%  static 'uikit-3.11.1/js/uikit.min.js' %}"></script>
-            <script src="{%  static 'uikit-3.11.1/js/uikit-icons.min.js' %}"></script>
- {% endblock %}
+     {%  block common_scripts %}
+        {% load static %}
+        <script src="{%  static 'uikit-3.11.1/js/uikit.min.js' %}"></script>
+        <script src="{%  static 'uikit-3.11.1/js/uikit-icons.min.js' %}"></script>
+        <script src="{%  static 'js/jquery-1.11.2.min.js' %}"></script>
+     {% endblock %}
+
+    {% block extra_scripts %}
+    {% endblock %}
 
 </body>
 </html>

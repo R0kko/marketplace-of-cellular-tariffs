@@ -1,0 +1,66 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+  Главная
+{% endblock %}
+
+
+{%  block main_content %}
+    <div class="uk-grid-medium" uk-grid>
+        <div class="uk-align-center">
+            <div class=" ">
+                <h1 class=" ">Тариф "{{ tariff.name }}"</h1>
+                {%  load static %}
+                <div uk-grid class="uk-grid-small">
+                    <div class="">
+                        <img class="uk-border-circle" width="40" height="40" src= "{%  static tariff.operator.icon.url %} ">
+                        <a href="{{ tariff.operator.website_link }}" class="uk-margin-small-left">{{ tariff.operator.name }}</a>
+                    </div>
+                    <div class="">
+                        <form method="post" action="{{ request.get_full_path }}">
+                            {% csrf_token %}
+                            {% if isfavorite %}
+                                <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8" style="color:red"></button>
+                            {% else %}
+                                <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8"></button>
+                            {% endif %}
+                        </form>
+                    </div>
+                    <div>
+                        <a class="uk-button uk-button-secondary" href="">Оформить тариф</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-child-width-1-2" uk-grid>
+            <div>
+                <p class="uk-text-lead">
+                    {{ tariff.general_information }}
+                </p>
+            </div>
+            <div  uk-grid class="uk-text-center uk-text-middle uk-grid-match uk-child-width-1-2   uk-text-bolder uk-text-large ">
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body  ">
+                       <span>{{ tariff.cost }} &#8381;</span>
+                    </div>
+                </div>
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <span>Минуты: <br>{{ tariff.minutes }}</span>
+                    </div>
+                </div>
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <span>Гигабайты: <br>{{ tariff.internet }}</span>
+                    </div>
+                </div>
+                <div class="uk-padding-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <span>Сообщения: <br>{{ tariff.messages }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
