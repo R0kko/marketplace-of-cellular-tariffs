@@ -17,9 +17,13 @@
                         <a href="{{ tariff.operator.website_link }}" class="uk-margin-small-left">{{ tariff.operator.name }}</a>
                     </div>
                     <div class="">
-                        <form action="{{ request.get_full_path }}" method="POST">
+                        <form method="post" action="{{ request.get_full_path }}">
                             {% csrf_token %}
-                            <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8" style="color:yellow"></button>
+                            {% if isfavorite %}
+                                <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8" style="color:red"></button>
+                            {% else %}
+                                <button name="favorite" type="submit" uk-icon="icon: star; ratio: 1.8"></button>
+                            {% endif %}
                         </form>
                     </div>
                     <div>

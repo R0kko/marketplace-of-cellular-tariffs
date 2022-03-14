@@ -99,14 +99,19 @@ def tariff_page(request, id: int):
     if request.user.is_authenticated:
         cur_user = request.user.supplementeduser_set.first()
         isfavorite = Favorite_fact.objects.filter(tariff=tariff, fav_author=cur_user)
+        context['isfavorite'] = isfavorite.count()
+        print(isfavorite.count())
 
     if request.method == "POST" and request.user.is_authenticated:
         if "favorite" in request.POST:
+            cur_user = request.user.supplementeduser_set.first()
+            isfavorite = Favorite_fact.objects.filter(tariff=tariff, fav_author=cur_user)
             if isfavorite.count() == 0:
                 favorite_cr = Favorite_fact(tariff=tariff, fav_author=cur_user)
                 favorite_cr.save()
             else:
                 Favorite_fact.objects.filter(id=isfavorite[0].id).delete()
+        return redirect('/tariff/' + str(id))
 
     context['tariff'] = tariff
     return render(request, 'tariff_page.html', context)
