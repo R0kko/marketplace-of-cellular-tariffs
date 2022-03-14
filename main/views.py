@@ -124,26 +124,29 @@ def registration_page(request):
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             if not SupplementedUser.objects.filter(telephone_number=form.data['telephone_number']).exists():
-                if form.data['password'] == form.data['repeated_password']:
-                    user1 = User()
-                    user2 = SupplementedUser()
-                    user1.set_password(raw_password=form.data['password'])
-                    user1.first_name = form.data['first_name']
-                    user1.last_name = form.data['last_name']
-                    user1.email = form.data['email']
-                    user2.date_of_birth = form.data['date_of_birth']
-                    user2.telephone_number = form.data['telephone_number']
-                    user2.patronymic = form.data['patronymic']
-                    user1.username = len(SupplementedUser.objects.all())
-                    user1.save()
-                    user2.user = user1
-                    user2.save()
-                    login(request, user1)
-                    return redirect(reverse('index'))
+                if not User.objects.filter(email=form.data['email']).exists():
+                    if form.data['password'] == form.data['repeated_password']:
+                        user1 = User()
+                        user2 = SupplementedUser()
+                        user1.set_password(raw_password=form.data['password'])
+                        user1.first_name = form.data['first_name']
+                        user1.last_name = form.data['last_name']
+                        user1.email = form.data['email']
+                        user2.date_of_birth = form.data['date_of_birth']
+                        user2.telephone_number = form.data['telephone_number']
+                        user2.patronymic = form.data['patronymic']
+                        user1.username = len(SupplementedUser.objects.all())
+                        user1.save()
+                        user2.user = user1
+                        user2.save()
+                        login(request, user1)
+                        return redirect(reverse('index'))
+                    else:
+                        form.add_error('repeated_password', 'Пароли не совпадают.')
                 else:
-                    form.add_error('repeated_password', 'Пароли не совпадают.')
+                    form.add_error('email', 'Эта почта уже зарегистрирована')
             else:
-                form.add_error('telephone_number', 'Этот номер уже зарегистрирован.')
+                form.add_error('telephone_number', 'Этот номер телефона уже зарегистрирован.')
         else:
             form.add_error(None, 'Введённые данные некорректны.')
     context['form'] = form
@@ -217,25 +220,19 @@ def profile_edit_page(request):
     elif request.method == 'POST':
         form = FullPersonalInformationForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                user = get_object_or_404(SupplementedUser, user_id=request.user.id)
-            except BaseException:
-                form.add_error(None, 'incorrect session')
-            else:
-                user1 = SupplementedUser.objects.get(user_id=request.user.id)
+
+                user_s = SupplementedUser.objects.get(user_id=request.user.id)
                 data = form.data
-                instance = form.instance
 
                 request.user.first_name = data['name']
                 request.user.last_name = data['surname']
                 request.user.email = data['email']
-                user1.telephone_number = data['telephone_number']
-                user1.patronymic = data['patronymic']
+                user_s.telephone_number = data['telephone_number']
+                user_s.patronymic = data['patronymic']
+                user_s.date_of_birth = data['date_of_birth']
                 request.user.save()
-                user1.save()
+                user_s.save()
 
-                user.date_of_birth = instance.date_of_birth
-                user.save()
                 return redirect('/profile/')
 
     context['form'] = form

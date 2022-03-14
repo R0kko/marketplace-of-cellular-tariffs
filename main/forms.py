@@ -2,7 +2,7 @@ from django import forms
 from .models import SupplementedUser
 
 class RegistrationForm(forms.Form):
-    telephone_number = forms.CharField(max_length=18, min_length=1, required=True, label='Номер', widget=forms.TextInput())
+    telephone_number = forms.IntegerField(required=True, label='Номер телефона', widget=forms.TextInput())
     first_name = forms.CharField(max_length=150, min_length=1, required=True, label='Имя', widget=forms.TextInput())
     last_name = forms.CharField(max_length=150, min_length=1, required=True, label='Фамилия', widget=forms.TextInput())
     patronymic = forms.CharField(max_length=150, min_length=1, required=True, label='Отчество', widget=forms.TextInput())
@@ -17,7 +17,7 @@ class FullPersonalInformationForm(forms.ModelForm):
     name = forms.CharField(max_length=150, min_length=1, required=True, label='Имя', widget=forms.TextInput())
     surname = forms.CharField(max_length=150, min_length=1, required=True, label='Фамилия', widget=forms.TextInput())
     patronymic = forms.CharField(max_length=150, min_length=1, required=True, label='Отчество', widget=forms.TextInput())
-    telephone_number = forms.CharField(max_length=14, min_length=1, required=True, label='Номер телефона', widget=forms.TextInput())
+    telephone_number = forms.IntegerField(required=True, label='Номер телефона', widget=forms.TextInput())
     email = forms.CharField(max_length=150, min_length=1, required=True, label='Почта', widget=forms.TextInput())
     date_of_birth = forms.DateField(label='Дата рождения', widget=forms.DateInput())
 
