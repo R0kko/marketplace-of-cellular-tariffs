@@ -39,13 +39,13 @@
   </div>
   <hr>
 
-    {% if tariffs %}
+    {% if all_favs %}
     <h2>
       Ваши избранные тарифы:
     </h2>
     <br>
-    {% for tariff in trariffs %}
-
+    {% for tariff in all_favs %}
+        {% include 'base_templates/tariff_base.html' %}
     {% endfor %}
     {% else %}
     <h2>

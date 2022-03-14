@@ -174,6 +174,15 @@ def profile_page(request):
         context['page_owner'] = current_user
         context['page_owner2'] = current_user.user
         context['u_id'] = current_user.id
+
+        user1 = SupplementedUser.objects.get(user_id=request.user.id)
+        favorits = Favorite_fact.objects.filter(fav_author=user1)
+        any_objects = (Favorite_fact.objects.filter(fav_author=user1).count() > 0)
+        context['any_objects'] = any_objects
+        all_favs = []
+        for i in favorits:
+            all_favs.append(i.tariff)
+        context['all_favs'] = all_favs
     else:
         return redirect('/login/')
     return render(request, 'profile.html', context)
@@ -208,7 +217,7 @@ def profile_edit_page(request):
             except BaseException:
                 form.add_error(None, 'incorrect session')
             else:
-                user1 = SupplementedUser.objects.get(telephone_number='228')
+                user1 = SupplementedUser.objects.get(user_id=request.user.id)
                 data = form.data
                 instance = form.instance
 
