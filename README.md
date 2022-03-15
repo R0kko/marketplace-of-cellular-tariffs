@@ -166,6 +166,6 @@ python manage.py runserver
 
 ## DockerHub
 ```bash
-docker pull 4svon/market_place_of_ct
-docker run -p 8000:8000 market_place_of_ct:main
+docker pull 4svon/marketplace_of_ct:main
+docker run -p 8000:8000 4svon/marketplace_of_ct:main
 ```
