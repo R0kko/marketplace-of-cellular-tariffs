@@ -7,4 +7,4 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
 
-CMD exec ./docker/run.sh
+CMD exec ./run.sh
