@@ -26,19 +26,19 @@ SECRET_KEY = 'django-insecure-h^w(psng)my**cta238e###p6j8r!6arm2=!w3gv-o!ojdn^lo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +132,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media/'
 MEDIA_URL = '/media/'
+
+MIN_MINUTES = 0
+MAX_MINUTES = 1000
+MIN_PRICE = 0
+MAX_PRICE = 2000
+MIN_GB = 0
+MAX_GB = 50
+MIN_MESSAGES = 0
+MAX_MESSAGES = 500

@@ -6,10 +6,94 @@
 
 
 {%  block main_content %}
+    <h1 class="uk-text-center uk-margin-medium-bottom">Подберите себе тариф!</h1>
+    <form method="get" action="{% url 'tariffs' %}">
+        <fieldset class="uk-fieldset uk-margin-medium-bottom">
+            <div uk-grid class="uk-margin-medium">
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Цена</span>
+                    <input class="uk-input" type="text" id="price_input" name="price_input">
+                </div>
+                <input id="price_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ price_val }}" min="{{ MIN_PRICE }}" max="{{ MAX_PRICE }}" step="1">
+
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Минуты</span>
+                    <input name="minutes_input" id="minutes_input"  class="uk-input" type="text" placeholder="">
+                </div>
+                <input id="minutes_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ minutes_val }}" min="{{ MIN_MINUTES }}" max="{{ MAX_MINUTES}}" step="1">
+
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Гигабайты</span>
+                    <input name="gb_input" id="gb_input" class="uk-input" type="text" placeholder="">
+                </div>
+                <input id="gb_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ gb_val }}" min="{{ MIN_GB }}" max="{{ MAX_GB }}" step="1">
+
+                <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
+                    <span class="uk-text-middle uk-text-bolder uk-text-large">Cообщения</span>
+                    <input name="messages_input" id="messages_input" class="uk-input" type="text" placeholder="">
+                </div>
+                <input id="messages_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ messages_val }}" min="{{ MIN_MESSAGES }}" max="{{ MAX_MESSAGES }}" step="1">
+            </div>
+            <input class="uk-button uk-button-secondary uk-align-center" type="submit" value="Подобрать">
+        </fieldset>
+    </form>
 
     {% for tariff in tariffs %}
         {% include 'base_templates/tariff_base.html' %}
     {% endfor %}
 
 
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        $(document).ready(function(){
+            $('#price_input').val($('#price_range').val());
+            $('#price_range').mousemove(function() {
+                $('#price_input').val($('#price_range').val());
+            });
+
+            $('#price_input').change(function() {
+                $('#price_range').val($('#price_input').val());
+            });
+        })
+
+        $(document).ready(function(){
+            $('#minutes_input').val($('#minutes_range').val());
+            $('#minutes_range').mousemove(function() {
+                $('#minutes_input').val($('#minutes_range').val());
+            });
+
+            $('#minutes_input').change(function() {
+                $('#minutes_range').val($('#minutes_input').val());
+            });
+        })
+
+        $(document).ready(function(){
+            $('#gb_input').val($('#gb_range').val());
+            $('#gb_range').mousemove(function() {
+                $('#gb_input').val($('#gb_range').val());
+            });
+
+            $('#gb_input').change(function() {
+                $('#gb_range').val($('#gb_input').val());
+            });
+        })
+
+        $(document).ready(function(){
+            $('#messages_input').val($('#messages_range').val());
+            $('#messages_range').mousemove(function() {
+                $('#messages_input').val($('#messages_range').val());
+            });
+
+            $('#messages_input').change(function() {
+                $('#messages_range').val($('#messages_input').val());
+            });
+        })
+
+        $(document).on("keydown", "form", function(event) {
+            return event.key != "Enter";
+        });
+
+    </script>
 {% endblock %}
