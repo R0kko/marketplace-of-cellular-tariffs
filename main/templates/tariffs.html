@@ -14,25 +14,25 @@
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Цена</span>
                     <input class="uk-input" type="text" id="price_input" name="price_input">
                 </div>
-                <input id="price_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ price_val }}" min="0" max="1000" step="1">
+                <input id="price_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ price_val }}" min="{{ MIN_PRICE }}" max="{{ MAX_PRICE }}" step="1">
 
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Минуты</span>
                     <input name="minutes_input" id="minutes_input"  class="uk-input" type="text" placeholder="">
                 </div>
-                <input id="minutes_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ minutes_val }}" min="0" max="1000" step="1">
+                <input id="minutes_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ minutes_val }}" min="{{ MIN_MINUTES }}" max="{{ MAX_MINUTES}}" step="1">
 
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Гигабайты</span>
                     <input name="gb_input" id="gb_input" class="uk-input" type="text" placeholder="">
                 </div>
-                <input id="gb_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ gb_val }}" min="0" max="1000" step="1">
+                <input id="gb_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ gb_val }}" min="{{ MIN_GB }}" max="{{ MAX_GB }}" step="1">
 
                 <div uk-grid class="uk-child-width-1-2 uk-margin-small-right uk-width-1-2 uk-text-middle">
                     <span class="uk-text-middle uk-text-bolder uk-text-large">Cообщения</span>
                     <input name="messages_input" id="messages_input" class="uk-input" type="text" placeholder="">
                 </div>
-                <input id="messages_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ messages_val }}" min="0" max="1000" step="1">
+                <input id="messages_range" class="uk-range uk-width-expand uk-margin-small-right" type="range" value="{{ messages_val }}" min="{{ MIN_MESSAGES }}" max="{{ MAX_MESSAGES }}" step="1">
             </div>
             <input class="uk-button uk-button-secondary uk-align-center" type="submit" value="Подобрать">
         </fieldset>

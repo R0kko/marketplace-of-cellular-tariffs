@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib.auth.hashers import check_password
 
 from main.models import SupplementedUser, Notification, Tariff, Operator, Favorite_fact
+from marketplace_of_ct.settings import MAX_GB, MAX_MINUTES, MIN_MINUTES, MIN_GB, MAX_PRICE, MIN_PRICE, MIN_MESSAGES, MAX_MESSAGES
+from random import randint
 
 
 # Create your views here.
@@ -49,22 +51,33 @@ def create_some_operators():
 
 def create_some_tariffs():
     operators = Operator.objects.all()
-    a = Tariff(cost=120, minutes=300, internet=5, messages=10, operator=operators[0],
-               general_information='''Пользоваться мессенджерами в поездках можно безлимитно. В тариф включены услуги «Безлимитные
-                    мессенджеры за границей» и «Безлимитные мессенджеры на полуострове» на специальных условиях:
-                    оплачивайте тариф вовремя и пользуйтесь услугами бесплатно. Находясь за границей или в Республике
-                    Крым и г. Севастополь без подключения дополнительных опций, безлимитно предоставляется доступ к
-                    Viber, ТамТам, WhatsApp, а исходящие звонки на Tele2 России из популярных стран Европы включены
-                    в пакет тарифа.''')
-    a.save()
-    b = Tariff(cost=123, minutes=321, internet=1, messages=0, operator=operators[1])
-    b.save()
-    c = Tariff(cost=666, minutes=666, internet=666, messages=666, operator=operators[2])
-    c.save()
+    for _ in range(3):
+        a = Tariff(cost=randint(MIN_PRICE, MAX_PRICE), minutes=randint(MIN_MINUTES, MAX_MINUTES),
+                   internet=randint(MIN_GB, MAX_GB), messages=randint(MIN_MESSAGES, MAX_MESSAGES), operator=operators[0],
+                   general_information='''Медве́жьи (лат. Ursidae) — семейство млекопитающих отряда хищных. Отличаются от других представителей псообразных более коренастым телосложением. Медведи всеядны, хорошо лазают и плавают, быстро бегают, могут стоять и проходить короткие расстояния на задних лапах. Имеют короткий хвост, длинную и густую шерсть, а также отличное обоняние. Охотятся вечером или на рассвете.''')
+        a.save()
+        a = Tariff(cost=randint(MIN_PRICE, MAX_PRICE), minutes=randint(MIN_MINUTES, MAX_MINUTES),
+                   internet=randint(MIN_GB, MAX_GB), messages=randint(MIN_MESSAGES, MAX_MESSAGES), operator=operators[1],
+                   general_information='''Волк, или се́рый волк, или обыкнове́нный волк (лат. Canis lupus), — вид хищных млекопитающих из семейства псовых (Canidae). Наряду с койотом (Canis latrans), обыкновенным шакалом (Canis aureus) и ещё несколькими видами составляет род волков (Canis). Кроме того, как показывают результаты изучения последовательности ДНК и дрейфа генов, является прямым предком домашней собаки (Canis familiaris; иногда классифицируется как подвид волка, Canis lupus familiaris).''')
+        a.save()
+        a = Tariff(cost=randint(MIN_PRICE, MAX_PRICE), minutes=randint(MIN_MINUTES, MAX_MINUTES),
+                   internet=randint(MIN_GB, MAX_GB), messages=randint(MIN_MESSAGES, MAX_MESSAGES), operator=operators[2],
+                   general_information='''Лиси́ца — это хищное млекопитающее, относится к отряду хищные, семейству псовые. В старославянском языке прилагательному «лисый» соответствовало определение желтоватого, рыжего и желтовато-оранжевого цвета, характерного для окраса широко распространенной лисы обыкновенной. Общее название нескольких видов млекопитающих семейства псовые. Только 10 видов этой группы относят к роду собственно лисиц (лат. Vulpes). Наиболее известный и распространённый представитель — обыкновенная лисица (Vulpes vulpes). Лисицы встречаются в фольклоре многих народов по всему миру.''')
+        a.save()
 
 
 def tariffs_page(request):
     context = get_base_context(request, 'Тарифы')
+
+    context['MIN_PRICE'] = MIN_PRICE
+    context['MIN_GB'] = MIN_GB
+    context['MIN_MINUTES'] = MIN_MINUTES
+    context['MIN_MESSAGES'] = MIN_MESSAGES
+    context['MAX_PRICE'] = MAX_PRICE
+    context['MAX_GB'] = MAX_GB
+    context['MAX_MINUTES'] = MAX_MINUTES
+    context['MAX_MESSAGES'] = MAX_MESSAGES
+
     tariffs = Tariff.objects.all()
     if not tariffs:
         create_some_operators()

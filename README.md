@@ -155,3 +155,17 @@
 
 ## Компонентная модель
 <img width="1359" alt="Снимок экрана 2021-12-07 в 00 27 37" src="https://user-images.githubusercontent.com/89997389/144925387-f2c97c26-5426-432e-8d79-8601898cecb4.png">
+
+## Quickstart for Ubuntu
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+## DockerHub
+```bash
+docker pull 4svon/market_place_of_ct
+docker run -p 8000:8000 market_place_of_ct:main
+```
